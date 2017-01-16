@@ -75,12 +75,17 @@ foreach ($vm in $servers.Keys) {
 
 while ($servers_provisioned.Count -lt $server_count) {
     Start-Sleep -s 10
+    Write-Host -NoNewline "."
     init_server
 }
 
+"`n`n Systems all received scripts, testing if they execute succesfully `n`n"
+
 $servers_provisioned = @()
 while ($servers_done.Count -lt $server_count) {
-    Start-Sleep -s 60
+
+    Start-Sleep -s 20
+    Write-Host -NoNewline "."
 
     foreach ($vm in $servers.Keys) {
         $vm_info = Get-VMNetworkAdapter -VMName $vm | Select VMName, IPAddresses
@@ -118,3 +123,5 @@ while ($servers_done.Count -lt $server_count) {
 
 # Done with server initialisation, cleaning up
 "Server initialization done, now installing software and features"
+
+.\install_features.ps1 -LabName $LabName -PassWord $Password
