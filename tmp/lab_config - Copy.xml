@@ -1,0 +1,12 @@
+<labs>
+	<lab Name="lab1" IP="10.0.0.0" DNS="10.0.0.2">
+		<lab1-1 Programs="DNS,IIS"/>	
+		<custom-1 Programs="" />
+	</lab>
+
+	<lab Name="lab2" IP="10.0.1.0">
+		<lab1-1 Programs="DNS,IIS"/>	
+		<lab1-2 Programs="IIS"/>
+		<custom-1 Programs="" />
+	</lab>
+</labs>
