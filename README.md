@@ -15,8 +15,8 @@ The tool requires 2 things to function:
 2. A image to deploy from. The images are build by using sysprep. If you want to add a clean windows image take the following steps:
   1. install windows on a VM using the .vhdx disk format
   2. Enable [Powershell remoting](https://msdn.microsoft.com/en-us/powershell/reference/4.0/microsoft.powershell.core/enable-psremoting)
-  3. Add a [https://technet.microsoft.com/en-us/library/c026170e-40ef-4191-98dd-0b9835bfa580](unnattend.xml)
-  4. [sysprep](https://technet.microsoft.com/en-us/library/cc721940(v=ws.10).aspx)Sysprep the image by using the following command: C:/Windows/System32/Sysprep/Sysprep.exe /generalize /oobe /shutdown /unattend:path-to-your-unattend.xml
+  3. Add a [unnattend.xml](https://technet.microsoft.com/en-us/library/c026170e-40ef-4191-98dd-0b9835bfa580)
+  4. [Sysprep](https://technet.microsoft.com/en-us/library/cc721940(v=ws.10).aspx) the image by using the following command: C:/Windows/System32/Sysprep/Sysprep.exe /generalize /oobe /shutdown /unattend:path-to-your-unattend.xml
 
 
 
