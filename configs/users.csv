@@ -1,21 +1,2 @@
 Name,username,password,department,domain,email,expires,enabled,groups
-Jan jansen,j.jansen,Welkom123,sales,force.com,TRUE,TRUE,TRUE,group1;group2;group3;group4;group5
-kees blaak,k.blaak,Welkom123,sales,force.com,TRUE,TRUE,TRUE,group1;group2;group3
-piet van der rijn,p.vanderrijn,Welkom123,sales,force.com,TRUE,TRUE,TRUE,group4;group5
-rein op het land,r.land,Welkom123,sales,force.com,TRUE,TRUE,TRUE,group3
-michelle duck,m.duck,Welkom123,sales,force.com,TRUE,TRUE,TRUE,
-frans duits,f.duits,Welkom123,HR,jedi.force.com,TRUE,TRUE,TRUE,group5
-ria jansen,r.jansen,Welkom123,HR,sith.force.com,TRUE,TRUE,TRUE,groups
-stijn fox,s.fox,Welkom123,HR,force.com,TRUE,TRUE,TRUE,group1;group2;group3;group4;group5
-maria maria,m.maria,Welkom123,HR,jedi.force.com,TRUE,TRUE,TRUE,group1;group2;group3
-aria jansen,a.jansen,Welkom123,HR,force.com,TRUE,TRUE,TRUE,group4;group5
-arjan de vries,a.devries,Welkom123,HR,sith.force.com,TRUE,TRUE,TRUE,group3
-vincent van gogh,v.vangogh,Welkom123,HR,sith.force.com,TRUE,TRUE,TRUE,
-fons de korte,f.dekorte,Welkom123,finance,jedi.force.com,TRUE,TRUE,TRUE,group5
-ruben vermeer,r.vermeer,Welkom123,finance,force.com,TRUE,TRUE,TRUE,groups
-albert zozo,a.zozo,Welkom123,finance,jedi.force.com,TRUE,TRUE,TRUE,group1;group2;group3;group4;group5
-klijn datzo,k.datzo,Welkom123,finance,sith.force.com,TRUE,TRUE,TRUE,group1;group2;group3
-koen ditzo,j.ditzo,Welkom123,staff,sith.force.com,TRUE,TRUE,TRUE,group4;group5
-rick bakker,r.bakker,Welkom123,staff,jedi.force.com,TRUE,TRUE,TRUE,group3
-rens de klein,r.deklein,Welkom123,staff,jedi.force.com,TRUE,TRUE,TRUE,
-joris de groot,j.degroot,Welkom123,staff,jedi.force.com,TRUE,TRUE,TRUE,group5
+Jon DOe, j.doe,Example_password,example_gorup,example.com, TRUE,TRUE,TRUE,Administrators;Exampleg1;group2
