@@ -1,2 +1,0 @@
-﻿$name = "windows7"
-
