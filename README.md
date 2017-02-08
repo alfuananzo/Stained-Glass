@@ -1,5 +1,5 @@
 # Introduction
-Stained glass is a Windows testlab deployment tool configures to run directly on the hypervisor. It is a project build by UvA students for research in close colebaration with outflank.nl. It is meant to be a tool for software testing, penetration testing and malware research. It deploys disks directly from the hypervisor instead of traditional testlab tools like SCCM, WDS or puppet. 
+Stained glass is a Windows testlab deployment tool configures to run directly on the hypervisor. It is a project build by UvA students for research in close colebaration with outflank.nl. It is meant to be a tool for software testing, penetration testing and malware research. It deploys disks directly from the hypervisor instead of traditional testlab tools like SCCM, WDS or puppet. Currently it ONLY works with Hyper-v.
 
 So what does Stained-Glas do? It deploys a realistic testlab in one click and go, all it takes is a defined lab in a XML file. This includes:
   * User files
@@ -29,7 +29,7 @@ The tool requires 2 things to function:
   4. [Sysprep](https://technet.microsoft.com/en-us/library/cc721940(v=ws.10).aspx) the image by using the following command: C:/Windows/System32/Sysprep/Sysprep.exe /generalize /oobe /shutdown /unattend:path-to-your-unattend.xml
   5. Move the .VHDX file after the system is shutdown to the disks/raw_disks folder and give it a identifyiable name ex. windows7
  
- You can deploy the images to the lab by putting their name in the OS attribute of the machine in the labs.xml file. Once the lab is configured and the images are ready you can deploy away.
+ You can deploy the images to the lab by putting their name in the OS attribute of the machine in the labs.xml file. Once the lab is configured and the images are ready you can deploy away. You can start labdeployment by calling scripts\hyper-v\init_server.ps1 -labname [labname] -password [some password]
 
 # What else can it do in the future?
 
