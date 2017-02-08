@@ -1,5 +1,38 @@
-# Stained-Glass
-A realistic windows testlab deployment tool
+# Introduction
+Stained glass is a Windows testlab deployment tool configures to run directly on the hypervisor. It is a project build by UvA students for research in close colebaration with outflank.nl. It is meant to be a tool for software testing, penetration testing and malware research. It deploys disks directly from the hypervisor instead of traditional testlab tools like SCCM, WDS or puppet. 
 
-Stained glass is a Windows testlab deployment tool configures to run directly on the hypervisor. It is a project build by UvA students for research in close colebaration with outflank.nl
+# How does it work?
+
+Stained-Glass is based on a new deployment model specified in [research paper here]. It directly deploys disks to the VM by using differencing disks and sysprep. It is completely build using powershell and a bit of BAT magic. All scripts are invoked from the init_server.ps1 file in the scripts/hyper-v/ folder. If you want to add your own installation script somewhere in the process there then you should place it there.
+
+Exchange installation is done seperately and can be removed from the script by the invocation line in init_servers.ps1. Exchange installation as is is incredably dodgy and not stable since it tends to fail every now and then for fun. Every lab should have its own subnet in the 10.0.x.0/24 subnet. This allows for a total of 255 labs defined.
+
+# How do i make it work?
+
+The tool requires 2 things to function:
+
+1. A lab defined in configs/labs_config.xml. A example can be found there. It expects a labname and some domain names there
+2. A image to deploy from. The images are build by using sysprep. If you want to add a clean windows image take the following steps:
+  i. install windows on a VM using the .vhdx disk format
+  ii. Enable [Powershell remoting](https://msdn.microsoft.com/en-us/powershell/reference/4.0/microsoft.powershell.core/enable-psremoting)
+  iii. Add a [https://technet.microsoft.com/en-us/library/c026170e-40ef-4191-98dd-0b9835bfa580](unnattend.xml)
+  iiii. [sysprep](https://technet.microsoft.com/en-us/library/cc721940(v=ws.10).aspx)Sysprep the image by using the following command: C:/Windows/System32/Sysprep/Sysprep.exe /generalize /oobe /shutdown /unattend:path-to-your-unattend.xml
+
+
+
+# What else can it do in the future?
+
+# Contact
+
+You can email me at fons.mijnen[at]os3.nl
+
+# Licensing
+
+Copyright 2017 Fons Mijnen, Vincent van Dongen, Outflank, UvA
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
