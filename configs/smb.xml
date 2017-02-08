@@ -1,0 +1,27 @@
+<disks>
+<x>
+	<administration>
+		<accounting />
+		<taxes />
+	</administration>
+	<hr>
+		<personel />
+		<hired-workers>
+			<temps />
+			<non-temps />
+		</hired-workers>
+		<synergie-slides />
+	</hr>
+</x>
+<y>
+	<it>
+		<dev />
+		<ops />
+		<docs />
+		<apps />
+	</it>
+</y>
+<z>
+	<management />
+</z>
+</disks>

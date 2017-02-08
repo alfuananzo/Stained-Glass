@@ -1,0 +1,21 @@
+<programs>
+	<java>
+		<java4 ext="exe" arg="/v/qn" />
+		<java5 ext="exe" arg="/v/qn" />
+		<java6 ext="exe" arg="/v/qn" />
+		<java7 ext="exe" arg="/s" />
+		<java8 ext="exe" arg="/s" />
+	</java>
+	
+	<python>
+		<python2.7 ext="msi" arg="/quiet" />
+		<python3.6 ext="exe" arg="/quiet" />
+	</python>
+
+	<acrobat>
+		<acrobat8 ext="exe" arg="/sAll" />
+		<acrobat9 ext="exe" arg="/sAll" />
+		<acrobat10 ext="exe" arg="/sAll" />
+		<acrobat11 ext="exe" arg="/sAll" />
+	</acrobat>
+</programs>
