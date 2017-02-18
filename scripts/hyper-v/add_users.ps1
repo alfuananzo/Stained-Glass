@@ -1,4 +1,4 @@
-﻿param($DC1, $DC2, $DC4, $domain1, $subdomain1, $subdomain2, $password, $smb)
+param($DC1, $DC2, $DC4, $domain1, $subdomain1, $subdomain2, $password, $smb)
 
 #$domain2 = "$subdomain1.$domain1"
 #$domain3 = "$subdomain2.$domain1"
@@ -78,4 +78,18 @@ $domain = $subdomain1, $domain1 -join(".")
 create_users $domain $DC2
 $domain = $subdomain2, $domain1 -join(".")
 create_users $domain $DC4
- $users = import-csv $dir\..\..\configs\users.csvInvoke-Command -Computername $smb -Credential $server_creds -ScriptBlock { New-Item "C:\shared\users" -ItemType Directory }Invoke-Command -Computername $smb -Credential $server_creds -ScriptBlock { New-SmbShare -Name users -Path "C:\shared\users" -FullAccess "administrator","Everyone"  -Description " folders and files" }foreach ($user in $users){    $homeDirectory = "\\$smb\Users\$($user.username)"    Invoke-Command -ComputerName $smb -Credential $server_creds { mkdir C:\shared\Users\$($using:user.username) }    $domain = ($user.domain).split(".")[0]    if ($domain -eq $subdomain1) { invoke-command -ComputerName $DC2 -Credential $server_creds -ScriptBlock { Get-ADUser -Identity $using:user.username | Set-ADUser -Replace @{HomeDirectory=$using:homeDirectory; HomeDrive="H"} } }    elseif ($domain -eq $subdomain2) { invoke-command -ComputerName $DC4 -Credential $server_creds -ScriptBlock { Get-ADUser -Identity $using:user.username | Set-ADUser -Replace @{HomeDirectory=$using:homeDirectory; HomeDrive="H"} } }    else { invoke-command -ComputerName $DC1 -Credential $server_creds -ScriptBlock { Get-ADUser -Identity $using:user.username | Set-ADUser -Replace @{HomeDirectory=$using:homeDirectory; HomeDrive="H"} } }    Invoke-Command -ComputerName $smb -Credential $server_creds -ScriptBlock { $acl = Get-Acl -Path C:\shared\users\$($using:user.username) ; $acl.SetAccessRule((New-Object System.Security.AccessControl.FileSystemAccessRule($($using:user.username), 'Modify', 'ContainerInherit,ObjectInherit', 'None', 'Allow'))) ; Set-Acl -Path C:\shared\users\$($using:user.username) -AclObject $acl }}
+ 
+$users = import-csv $dir\..\..\configs\users.csv
+Invoke-Command -Computername $smb -Credential $server_creds -ScriptBlock { New-Item "C:\shared\users" -ItemType Directory }
+Invoke-Command -Computername $smb -Credential $server_creds -ScriptBlock { New-SmbShare -Name users -Path "C:\shared\users" -FullAccess "administrator","Everyone"  -Description " folders and files" }
+foreach ($user in $users){
+    $homeDirectory = "\\$smb\Users\$($user.username)"
+    Invoke-Command -ComputerName $smb -Credential $server_creds { mkdir C:\shared\Users\$($using:user.username) }
+    $domain = ($user.domain).split(".")[0]
+    if ($domain -eq $subdomain1) { invoke-command -ComputerName $DC2 -Credential $server_creds -ScriptBlock { Get-ADUser -Identity $using:user.username | Set-ADUser -Replace @{HomeDirectory=$using:homeDirectory; HomeDrive="H"} } }
+    elseif ($domain -eq $subdomain2) { invoke-command -ComputerName $DC4 -Credential $server_creds -ScriptBlock { Get-ADUser -Identity $using:user.username | Set-ADUser -Replace @{HomeDirectory=$using:homeDirectory; HomeDrive="H"} } }
+    else { invoke-command -ComputerName $DC1 -Credential $server_creds -ScriptBlock { Get-ADUser -Identity $using:user.username | Set-ADUser -Replace @{HomeDirectory=$using:homeDirectory; HomeDrive="H"} } }
+
+    Invoke-Command -ComputerName $smb -Credential $server_creds -ScriptBlock { $acl = Get-Acl -Path C:\shared\users\$($using:user.username) ; $acl.SetAccessRule((New-Object System.Security.AccessControl.FileSystemAccessRule($($using:user.username), 'Modify', 'ContainerInherit,ObjectInherit', 'None', 'Allow'))) ; Set-Acl -Path C:\shared\users\$($using:user.username) -AclObject $acl }
+
+}
