@@ -1,4 +1,4 @@
-﻿param($DC1, $MAIL1, $domain1, $password)
+param($DC1, $MAIL1, $domain1, $password)
 $scriptpath = $MyInvocation.MyCommand.Path
 $dir = Split-Path $scriptpath
 
@@ -166,7 +166,19 @@ while (-not $server_up) {
 
 Remove-PSSession $ses
 $to = 0
-"Server up, checkinf if exchange started"while ((Invoke-Command -ComputerName $exchange_ip -Credential $creds1 -ScriptBlock { (Get-Service -Name "*MSexchange*" | ?{$_.Status -eq "Running"}).Count }) -lt 21) {    "Exchange is not yet up"    $to ++    if ($to -eq 10) {        $to = 0       "Exchange installation appears to have failed, trying to mend the situation"        Invoke-Command -ComputerName $DC1 -Credential $creds2 -ScriptBlock { Remove-ADGroup -Identity "Discovery Management" -Confirm:$false }        Start-Sleep -s 20        $ses = New-PSSession -ComputerName $exchange_ip -Credential $creds2        schedule_task "powershell.exe C:\exchange_install\r-install.ps1" $ses
+"Server up, checkinf if exchange started"
+while ((Invoke-Command -ComputerName $exchange_ip -Credential $creds1 -ScriptBlock { (Get-Service -Name "*MSexchange*" | ?{$_.Status -eq "Running"}).Count }) -lt 21) {
+    "Exchange is not yet up"
+    $to ++
+
+    if ($to -eq 10) {
+        $to = 0
+       "Exchange installation appears to have failed, trying to mend the situation"
+
+        Invoke-Command -ComputerName $DC1 -Credential $creds2 -ScriptBlock { Remove-ADGroup -Identity "Discovery Management" -Confirm:$false }
+        Start-Sleep -s 20
+        $ses = New-PSSession -ComputerName $exchange_ip -Credential $creds2
+        schedule_task "powershell.exe C:\exchange_install\r-install.ps1" $ses
         Remove-PSSession $ses
         $time = Get-VM -name $MAIL1 | select Uptime 
         $start = $time.UpTime.TotalSeconds
@@ -180,7 +192,15 @@ $to = 0
             start-sleep -s 60
             $time = Get-VM -name $MAIL1 | select Uptime 
             $run = $time.UpTime.TotalSeconds
-        }        Start-Sleep -s 120    }    Start-Sleep -s 60}Start-Sleep -s 300
+        }
+        Start-Sleep -s 120
+
+    }
+    Start-Sleep -s 60
+}
+
+Start-Sleep -s 300
+
 $ses = New-PSSession -ComputerName $exchange_ip -Credential $creds2
 
 schedule_task "powershell.exe C:\exchange_install\r-connecter.ps1" $ses
