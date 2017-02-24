@@ -1,11 +1,10 @@
-﻿param([String]$LabName, [String]$Password)
+﻿param([String]$LabName, [String]$Password, $UnattendPassword)
 $lab_id = $LabName
 $password = $Password
 
 $start_time = Get-Date
 
-$pass = ConvertTo-SecureString -String "Hyper-v_vergelijken" -AsPlainText -force
-$server_creds = New-Object -TypeName System.Management.Automation.PSCredential "NICE\administrator",$pass
+$pass = ConvertTo-SecureString -String $UnattendPassword -AsPlainText -force
 $creds = New-Object -TypeName System.Management.Automation.PSCredential "administrator",$pass
 $new_pass = ConvertTo-SecureString -String $PassWord -AsPlainText -force
 $new_creds = New-Object -TypeName System.Management.Automation.PSCredential "administrator",$new_pass
